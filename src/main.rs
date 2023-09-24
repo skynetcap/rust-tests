@@ -2,12 +2,15 @@
 #![allow(unused_variables, dead_code)]
 
 pub fn luhn(cc_number: &str) -> bool {
-    // remove spaces
-    let sanitized = cc_number.replace(" ", "");
+    // remove spaces and reverse
+    let sanitized = cc_number.replace(" ", "").chars().rev().collect::<String>();
     println!("Spaces removed: {}", sanitized);
 
     // foreach char, if not a number, fail
-
+    for i in 0..sanitized.len() {
+        let ch = sanitized.chars().nth(i).unwrap();
+        println!("Pos: {}, isNumeric: {}", ch, ch.is_numeric());
+    }
 
     // reject with less than 2 length
 
