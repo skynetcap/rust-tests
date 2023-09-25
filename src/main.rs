@@ -1,61 +1,78 @@
-// TODO: remove this when you're done with your implementation.
-#![allow(unused_variables, dead_code)]
+struct Library {
+    books: Vec<Book>,
+}
 
-pub fn luhn(cc_number: &str) -> bool {
-    // remove spaces and reverse
-    let sanitized = cc_number.replace(" ", "").chars().rev().collect::<String>();
-    println!("Spaces removed: {}", sanitized);
+struct Book {
+    title: String,
+    year: u16,
+}
 
-    // foreach char, if not a number, fail
-    for i in 0..sanitized.len() {
-        let ch = sanitized.chars().nth(i).unwrap();
-        println!("Pos: {}, isNumeric: {}", ch, ch.is_numeric());
+impl Book {
+    // This is a constructor, used below.
+    fn new(title: &str, year: u16) -> Book {
+        Book {
+            title: String::from(title),
+            year,
+        }
+    }
+}
+
+// Implement the methods below. Notice how the `self` parameter
+// changes type to indicate the method's required level of ownership
+// over the object:
+//
+// - `&self` for shared read-only access,
+// - `&mut self` for unique and mutable access,
+// - `self` for unique access by value.
+impl Library {
+    fn new() -> Library {
+        todo!("Initialize and return a `Library` value")
     }
 
-    // reject with less than 2 length
+    fn len(&self) -> usize {
+        todo!("Return the length of `self.books`")
+    }
 
+    fn is_empty(&self) -> bool {
+        todo!("Return `true` if `self.books` is empty")
+    }
 
+    fn add_book(&mut self, book: Book) {
+        todo!("Add a new book to `self.books`")
+    }
 
-    true
+    fn print_books(&self) {
+        todo!("Iterate over `self.books` and print each book's title and year")
+    }
+
+    fn oldest_book(&self) -> Option<&Book> {
+        todo!("Return a reference to the oldest book (if any)")
+    }
 }
 
-#[test]
-fn test_non_digit_cc_number() {
-    assert!(!luhn("foo"));
-    assert!(!luhn("foo 0 0"));
-}
+fn main() {
+    let mut library = Library::new();
 
-#[test]
-fn test_empty_cc_number() {
-    assert!(!luhn(""));
-    assert!(!luhn(" "));
-    assert!(!luhn("  "));
-    assert!(!luhn("    "));
-}
+    println!(
+        "The library is empty: library.is_empty() -> {}",
+        library.is_empty()
+    );
 
-#[test]
-fn test_single_digit_cc_number() {
-    assert!(!luhn("0"));
-}
+    library.add_book(Book::new("Lord of the Rings", 1954));
+    library.add_book(Book::new("Alice's Adventures in Wonderland", 1865));
 
-#[test]
-fn test_two_digit_cc_number() {
-    assert!(luhn(" 0 0 "));
-}
+    println!(
+        "The library is no longer empty: library.is_empty() -> {}",
+        library.is_empty()
+    );
 
-#[test]
-fn test_valid_cc_number() {
-    assert!(luhn("4263 9826 4026 9299"));
-    assert!(luhn("4539 3195 0343 6467"));
-    assert!(luhn("7992 7398 713"));
-}
+    library.print_books();
 
-#[test]
-fn test_invalid_cc_number() {
-    assert!(!luhn("4223 9826 4026 9299"));
-    assert!(!luhn("4539 3195 0343 6476"));
-    assert!(!luhn("8273 1232 7352 0569"));
-}
+    match library.oldest_book() {
+        Some(book) => println!("The oldest book is {}", book.title),
+        None => println!("The library is empty!"),
+    }
 
-#[allow(dead_code)]
-fn main() {}
+    println!("The library has {} books", library.len());
+    library.print_books();
+}
