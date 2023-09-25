@@ -26,19 +26,19 @@ impl Book {
 // - `self` for unique access by value.
 impl Library {
     fn new() -> Library {
-        todo!("Initialize and return a `Library` value")
+        Library{ books: vec![] }
     }
 
     fn len(&self) -> usize {
-        todo!("Return the length of `self.books`")
+        self.books.len()
     }
 
     fn is_empty(&self) -> bool {
-        todo!("Return `true` if `self.books` is empty")
+        self.books.len() == 0
     }
 
     fn add_book(&mut self, book: Book) {
-        todo!("Add a new book to `self.books`")
+        self.books.push(book);
     }
 
     fn print_books(&self) {
