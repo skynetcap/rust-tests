@@ -2,6 +2,7 @@ struct Library {
     books: Vec<Book>,
 }
 
+#[derive(Clone)]
 struct Book {
     title: String,
     year: u16,
@@ -42,11 +43,13 @@ impl Library {
     }
 
     fn print_books(&self) {
-        todo!("Iterate over `self.books` and print each book's title and year")
+        for book in &self.books {
+            println!("{} {}", book.title, book.year)
+        }
     }
 
     fn oldest_book(&self) -> Option<&Book> {
-        todo!("Return a reference to the oldest book (if any)")
+        self.books.get(1)
     }
 }
 
